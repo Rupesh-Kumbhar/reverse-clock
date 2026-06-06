@@ -1,6 +1,6 @@
 name: GitHub Page - Deploy
 
-run-name: GitHub Page - Deploy (${{ inputs.branch
+run-name: "GitHub Page - Deploy (${{ inputs.branch }})"
 
 on:
   # push:
