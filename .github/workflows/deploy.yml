@@ -1,9 +1,11 @@
-name: Deploy React App to GitHub Pages
+name: GitHub Page - Deploy
+
+run-name: GitHub Page - Deploy (${{ inputs.branch
 
 on:
-  push:
-    branches:
-      - develop
+  # push:
+  #   branches:
+  #     - develop
   workflow_dispatch:
     inputs:
       branch:
