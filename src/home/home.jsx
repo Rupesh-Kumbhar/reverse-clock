@@ -35,7 +35,7 @@ function Home() {
                     <div className="card w-25 bg-dark text-white p-3">
                         <img
                             className="card-img-top"
-                            src="https://ar.pinterest.com/pin/885098133011892544/"
+                            src="/gif/clock.gif"
                             alt="timer gif"
                         />
 
