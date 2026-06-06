@@ -1,11 +1,8 @@
 name: GitHub Page - Deploy
 
-run-name: "GitHub Page - Deploy (${{ inputs.branch }})"
+run-name: "GitHub Page - Deploy (${{ github.event.inputs.branch }})"
 
 on:
-  # push:
-  #   branches:
-  #     - develop
   workflow_dispatch:
     inputs:
       branch:
