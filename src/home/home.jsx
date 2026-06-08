@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../src/home/home.scss";
+import Break from "../break/break";
 
 function Home() {
     const [time, setTime] = useState(20 * 60); // 20 mins in seconds
@@ -75,7 +76,7 @@ function Home() {
                             </div>
                         </div>
                     </div>
-
+                    <Break />
                 </div>
             </div>
         </div>
