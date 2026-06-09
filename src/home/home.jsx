@@ -31,7 +31,7 @@ function Home() {
             <h1 className="text-center">Home</h1>
 
             <div className="col-sm-12 d-flex justify-content-center">
-                <div className="col-sm-10 d-flex justify-content-center">
+                <div className="col-sm-10 d-flex justify-content-around">
 
                     <div className="card w-25 bg-dark text-white p-3">
                         <img

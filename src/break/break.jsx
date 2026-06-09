@@ -23,7 +23,12 @@ function Break() {
   };
 
   return (
-    <div className="card w-25 bg-dark text-white p-3 text-center">
+    <div className="card w-25 bg-dark text-white p-3 text-center my-auto">
+      <img
+        className="card-img-top"
+        src="/gif/break.gif"
+        alt="timer gif"
+      />
       <h3>Break</h3>
       <h1>{formatTime(breakTime)}</h1>
 
