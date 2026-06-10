@@ -6,20 +6,34 @@ function Home() {
     const [time, setTime] = useState(20 * 60); // 20 mins in seconds
     const [isRunning, setIsRunning] = useState(false);
 
-    // Timer logic
-    useEffect(() => {
-        let timer;
+  // control break auto start
+  const [startBreak, setStartBreak] = useState(false);
 
-        if (isRunning && time > 0) {
-            timer = setInterval(() => {
-                setTime((prev) => prev - 1);
-            }, 1000);
-        }
+  useEffect(() => {
+    let timer;
 
-        return () => clearInterval(timer);
-    }, [isRunning, time]);
+    if (isRunning && time > 0) {
+      timer = setInterval(() => {
+        setTime((prev) => prev - 1);
+      }, 1000);
+    }
 
-    // Format time (mm:ss)
+    // when focus ends : trigger break
+    if (time === 0 && isRunning) {
+      setIsRunning(false);
+      setTime(20 * 60);
+      setStartBreak(true); // trigger break
+    }
+
+    return () => clearInterval(timer);
+  }, [isRunning, time]);
+
+  // WHEN BREAK ENDS : restart focus
+  const handleBreakEnd = () => {
+    setStartBreak(false);
+    setIsRunning(true);
+  };
+
     const formatTime = () => {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
@@ -33,54 +47,49 @@ function Home() {
             <div className="col-sm-12 d-flex justify-content-center">
                 <div className="col-sm-10 d-flex justify-content-around">
 
-                    <div className="card w-25 bg-dark text-white p-3">
-                        <img
-                            className="card-img-top"
-                            src="/gif/clock.gif"
-                            alt="timer gif"
-                        />
+          {/* Focus Card (unchanged UI) */}
+          <div className="card w-25 bg-dark text-white p-3">
+            <img className="card-img-top" src="/gif/clock.gif" alt="timer gif" />
 
-                        <div className="card-body text-center">
-                            <h1 className="card-title">{formatTime()}</h1>
+            <div className="card-body text-center">
+              <h1 className="card-title">{formatTime()}</h1>
 
-                            <p className="card-text">
-                                Focus for 20 mins, then take a short break
-                            </p>
+              <p className="card-text">
+                Focus for 20 mins, then take a short break
+              </p>
 
-                            <div className="d-flex justify-content-around">
+              <div className="d-flex justify-content-around">
+                <button className="btn btn-success" onClick={() => {
+                  setIsRunning(true);
+                  setStartBreak(false); // stop break if running
+                }}>
+                  Start
+                </button>
 
-                                <button
-                                    className="btn btn-success"
-                                    onClick={() => setIsRunning(true)}
-                                >
-                                    Start
-                                </button>
+                <button className="btn btn-warning" onClick={() => setIsRunning(false)}>
+                  Pause
+                </button>
 
-                                <button
-                                    className="btn btn-warning"
-                                    onClick={() => setIsRunning(false)}
-                                >
-                                    Pause
-                                </button>
-
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => {
-                                        setIsRunning(false);
-                                        setTime(20 * 60);
-                                    }}
-                                >
-                                    Reset
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
-                    <Break />
-                </div>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    setIsRunning(false);
+                    setTime(20 * 60);
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
             </div>
+          </div>
+
+          {/* break (now controlled) */}
+          <Break autoStart={startBreak} onBreakEnd={handleBreakEnd} />
+
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Home;
